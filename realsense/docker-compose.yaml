@@ -1,0 +1,22 @@
+services:
+  realsense:
+    image: tinsirius/franka_ros_noetic:realsense
+    network_mode: "host"
+    privileged: true
+    container_name: realsense
+    
+    env_file:
+      - .env
+
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /run/udev:/run/udev:ro
+      - /dev:/dev
+      - ./external_camera_tf.launch:/external_camera_tf.launch
+    
+    command: >
+      bash -c "source /home/realsense_ws/devel/setup.bash &&
+               roslaunch rv_panda_realsense monash_realsense.launch"

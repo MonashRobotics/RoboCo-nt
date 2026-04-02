@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  armer_real:
+    image: tinsirius/franka_ros_noetic:armer_f4
+    container_name: armer-real
+    network_mode: host
+    privileged: true
+    cap_add:
+      - SYS_NICE
+    ulimits:
+      rtprio: 99
+      rttime: -1
+      memlock: 8428281856
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - PYTHONUNBUFFERED=1
+      - REAL_ROBOT=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+
+    command: >
+      bash -c "source /home/armer_ws/devel/setup.bash &&
+                roslaunch armer_panda robot_bringup.launch rviz:=true"

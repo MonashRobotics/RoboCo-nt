@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  armer_sim:
+    image: tinsirius/franka_ros_noetic:armer_f4
+    container_name: armer-sim
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - PYTHONUNBUFFERED=1 # To prevent Python scripting printing not showing up on screen
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    command: >
+      bash -c "source /home/armer_ws/devel/setup.bash &&
+               roslaunch armer_panda robot_bringup.launch sim:=true"

@@ -15,7 +15,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /run/udev:/run/udev:ro
       - /dev:/dev
-      - ./external_camera_tf.launch:/external_camera_tf.launch
+      - ./calib:/calib
     
     command: >
       bash -c "source /home/realsense_ws/devel/setup.bash &&

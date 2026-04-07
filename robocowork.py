@@ -119,14 +119,14 @@ async def generate_setup(robot_key: str, service_key: str, hardware_keys: list[s
             raise ToolError(f"{robot_key} does not support hardware {hw_key}")
 
     base_dir = Path.cwd()
-    robot_dir = base_dir / "RoboCo-nt" / robot_key / service_key
+    robot_dir = base_dir / "services" / robot_key / service_key
     sim_compose_files = [robot_dir / "docker-compose.yaml"]
     sim_env_files = [robot_dir / ".env"]
     real_compose_files = [robot_dir / "docker-compose-real.yaml"]
     real_env_files = [robot_dir / ".env-real"]
 
     for hw_key in hardware_keys:
-        hw_dir = base_dir / "RoboCo-nt" / hw_key
+        hw_dir = base_dir / "services" / hw_key
         
         sim_compose_files.append(hw_dir / "docker-compose.yaml")
         sim_env_files.append(hw_dir / ".env")

@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  zenoh-bridge:
+    image: eclipse/zenoh-bridge-dds:1.8.0
+    container_name: zenoh-dds-bridge
+    network_mode: host
+    command: ["-e", "${ZENOH_ENDPOINT}"]
+    env_file:
+      - .env
+    
+  g1_sdk2_python_and_hand:
+    image: tinsirius/g1:sdk2_python_and_hand
+    container_name: sdk2_python_and_hand
+    network_mode: host
+    depends_on:
+      - zenoh-bridge
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      # GUI stuff
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - LIBGL_ALWAYS_SOFTWARE=1
+      - QT_OPENGL=software
+    volumes:
+      - ./examples:/app/examples
+      # GUI stuff
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw

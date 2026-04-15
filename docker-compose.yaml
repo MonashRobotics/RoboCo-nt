@@ -1,0 +1,23 @@
+services:
+  robocowork:
+    build: .
+    network_mode: "host"
+    restart: unless-stopped
+    volumes:
+      - ./services:/app/services
+      - ./configurations.py:/app/configurations.py
+      - ./roboco_core.py:/app/roboco_core.py
+      - ./robocowork.py:/app/robocowork.py
+    command: ["python", "robocowork.py"]
+
+  roboco-cli:
+    build: .
+    network_mode: "host"
+    restart: unless-stopped
+    volumes:
+      - ./services:/app/services
+      - ./configurations.py:/app/configurations.py
+      - ./roboco_core.py:/app/roboco_core.py
+      - ./roboco_cli.py:/app/roboco_cli.py
+      - ./projects:/app/projects
+    command: ["python", "roboco_cli.py"]

@@ -30,7 +30,7 @@ inst = """
     """
 
 # Initialize FastMCP server
-mcp = FastMCP("Roboco", instructions = inst)
+mcp = FastMCP("Roboco", instructions = inst, host="0.0.0.0", port=8000)
 
 def merge_yaml_strings(base_yaml: str, add_yaml: str) -> str:
     """Merges two docker-compose YAML strings securely."""
@@ -165,7 +165,7 @@ async def generate_setup(robot_key: str, service_key: str, hardware_keys: list[s
     }
 
 def main():
-    mcp.run(transport="stdio")
+    mcp.run(transport="sse")
 
 if __name__ == "__main__":
     main()

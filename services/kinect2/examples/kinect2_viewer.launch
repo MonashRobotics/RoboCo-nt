@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
+
+  <node pkg="kinect2_viewer" type="kinect2_viewer" name="kinect2_viewer"
+        args="kinect2 qhd cloud"
+        output="screen" />
+</launch>

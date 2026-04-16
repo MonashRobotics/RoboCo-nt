@@ -21,5 +21,5 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     command: >
-      bash -c "source /home/moveit_ws/devel/setup.bash && 
+      bash -c "source /home/moveit_ws/devel/setup.bash &&
               roslaunch panda_moveit_config franka_control.launch robot_ip:=${ROBOT_IP}"

@@ -4,7 +4,7 @@ services:
     network_mode: "host"
     privileged: true
     container_name: realsense
-    
+
     env_file:
       - .env
 
@@ -16,7 +16,7 @@ services:
       - /run/udev:/run/udev:ro
       - /dev:/dev
       - ./calib:/calib
-    
+
     command: >
       bash -c "source /home/realsense_ws/devel/setup.bash &&
                roslaunch rv_panda_realsense monash_realsense.launch"

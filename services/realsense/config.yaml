@@ -1,0 +1,55 @@
+cameras:
+  - name: table1_realsense
+    namespace: table1_realsense
+    tf_prefix: table1_realsense
+    relative_to_robot: false
+    serial_no: "815412070589"
+    marker_prefix: t1r_
+    enable_alvar_detection: true
+    rgb_only: true
+  
+  - name: wrist_realsense
+    namespace: wrist_realsense
+    tf_prefix: wrist_realsense
+    relative_to_robot: true
+    serial_no: "141722072409"
+    marker_prefix: wr_
+    enable_alvar_detection: true
+    rgb_only: true
+
+  - name: table2_realsense
+    namespace: table2_realsense
+    tf_prefix: table2_realsense
+    relative_to_robot: false
+    serial_no: "825312070112"
+    marker_prefix: t2r_
+    enable_alvar_detection: true
+    rgb_only: true
+
+
+# alvar_marker detection settings
+detection_settings:
+  marker_size: 18.0
+  max_new_marker_error: 0.08
+  max_track_error: 0.2
+
+# The two camera should be looking at the same maker
+# i.e., the same numeric number after the marker prefix
+# Then calibration will try to publish tf_frame2 as child of tf_frame1
+# If we do not calibrate, the code assume the existence of the file in 
+# `launch_file` and launch that instead.
+calibration:
+  enable: false # calibration.launch is empty if false, otherwise, true
+  do_calibrate: false # actually run calibrate if true, otherwise use the generated static launch files.
+  calibrations:
+    - marker_frame1: wr_3
+      tf_frame1: panda_link0
+      marker_frame2: t1r_3
+      tf_frame2: table1_realsense_link
+      num_samples: 100 # How many tf reads to average over.
+
+    - marker_frame1: wr_3
+      tf_frame1: panda_link0
+      marker_frame2: t2r_3
+      tf_frame2: table2_realsense_link
+      num_samples: 100 # How many tf reads to average over
